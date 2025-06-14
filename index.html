@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis Manufacturing QA Training Research - Kind Oasis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f7fa;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #4ade80;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #64748b;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Training Modules Section */
+        .modules-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .module-card {
+            background: linear-gradient(135deg, #f6f9fc 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .module-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #4ade80;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .module-title {
+            font-size: 1.2rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-duration {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        
+        .module-topics {
+            list-style: none;
+            font-size: 0.95rem;
+            color: #475569;
+        }
+        
+        .module-topics li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-topics li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+        
+        /* Research Topics Section */
+        .topics-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #1e3c72;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .topic-accordion {
+            margin-top: 2rem;
+        }
+        
+        .topic-item {
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .topic-item:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .topic-header {
+            background: #f8fafc;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .topic-header:hover {
+            background: #f1f5f9;
+        }
+        
+        .topic-header h3 {
+            color: #1e3c72;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        
+        .topic-arrow {
+            transition: transform 0.3s;
+            color: #64748b;
+        }
+        
+        .topic-item.active .topic-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .topic-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+        
+        .topic-item.active .topic-content {
+            padding: 1.5rem;
+            max-height: 2000px;
+        }
+        
+        .key-points {
+            background: #f0fdf4;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #4ade80;
+        }
+        
+        .key-points h4 {
+            color: #16a34a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: #15803d;
+        }
+        
+        .key-points li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+        }
+        
+        /* Resources Section */
+        .resources-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .resource-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-color: #4ade80;
+        }
+        
+        .resource-type {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .resource-title {
+            font-size: 1.1rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-description {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .resource-link:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        
+        /* Progress bar animations removed */
+        
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .modules-grid,
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Kind Oasis</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Cannabis Manufacturing Quality Assurance Training</h1>
+                <p>Comprehensive 1-Hour Training Program for Kind Oasis Team Members</p>
+            </section>
+
+            <!-- Training Modules Section -->
+            <section id="modules" class="modules-section">
+                <h2 class="section-title">Recommended Training Modules</h2>
+                <div class="modules-grid">
+                    <div class="module-card">
+                        <div class="module-number">1</div>
+                        <h3 class="module-title">GMP Fundamentals & Prep Practices</h3>
+                        <p class="module-duration">15 minutes</p>
+                        <ul class="module-topics">
+                            <li>Essential Hygiene & PPE Requirements</li>
+                            <li>Contamination Prevention Strategies</li>
+                            <li>Personal Hygiene Impact on Safety</li>
+                            <li>Workspace Preparation Protocols</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">2</div>
+                        <h3 class="module-title">Equipment Hygiene & Facility Sanitation</h3>
+                        <p class="module-duration">15 minutes</p>
+                        <ul class="module-topics">
+                            <li>Pre-operation Cleaning Procedures</li>
+                            <li>Sanitizing Between Product Batches</li>
+                            <li>Post-operation Cleaning Protocols</li>
+                            <li>Facility Standards & Pest Control</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">3</div>
+                        <h3 class="module-title">Product-Specific QA Protocols</h3>
+                        <p class="module-duration">20 minutes</p>
+                        <ul class="module-topics">
+                            <li>Gummies Production QA</li>
+                            <li>Beverages Production QA</li>
+                            <li>Tinctures & Topicals QA</li>
+                            <li>Critical Control Points</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">4</div>
+                        <h3 class="module-title">Documentation & Compliance</h3>
+                        <p class="module-duration">10 minutes</p>
+                        <ul class="module-topics">
+                            <li>Batch Production Records</li>
+                            <li>Quality Control Test Results</li>
+                            <li>Regulatory Compliance</li>
+                            <li>Record Retention Policies</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Research Topics -->
+            <section id="topics" class="topics-section">
+                <h2 class="section-title">Core Research Topics</h2>
+                
+                <div class="topic-accordion">
+                    <!-- Process Quality Assurance -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Process Quality Assurance</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Process Quality Assurance focuses on ensuring that the processes used to produce cannabis products are effective, efficient, and consistently meet quality standards. It's a proactive approach that prevents defects rather than detecting them after they occur.</p>
+                            
+                            <div class="key-points">
+                                <h4>Key Implementation Areas:</h4>
+                                <ul>
+                                    <li>Standard Operating Procedures (SOPs) development and maintenance</li>
+                                    <li>Process mapping and optimization for all production stages</li>
+                                    <li>Statistical Process Control (SPC) for real-time monitoring</li>
+                                    <li>Continuous improvement methodologies</li>
+                                    <li>Employee training on process standards</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Cannabis-Specific Considerations:</strong> Due to the plant's natural variability and complex chemistry, process QA must account for batch-to-batch variations while maintaining consistent potency and safety standards.</p>
+                        </div>
+                    </div>
+
+                    <!-- Product Quality Assurance -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Product Quality Assurance</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Product Quality Assurance ensures that finished cannabis products meet all specifications for safety, potency, and consistency before reaching consumers.</p>
+                            
+                            <div class="key-points">
+                                <h4>Essential Components:</h4>
+                                <ul>
+                                    <li>Raw material inspection and testing</li>
+                                    <li>In-process quality checks at critical control points</li>
+                                    <li>Final product testing for potency, contaminants, and uniformity</li>
+                                    <li>Packaging integrity verification</li>
+                                    <li>Stability testing and shelf-life determination</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Testing Requirements:</strong> Products must be tested for cannabinoid profiles, terpenes, pesticides, heavy metals, microbials, mycotoxins, and residual solvents according to state regulations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Document Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Document Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Comprehensive document management is critical for maintaining compliance, ensuring traceability, and supporting continuous improvement in cannabis manufacturing.</p>
+                            
+                            <div class="key-points">
+                                <h4>Key Documentation Areas:</h4>
+                                <ul>
+                                    <li>Batch production records with complete traceability</li>
+                                    <li>Equipment maintenance and calibration logs</li>
+                                    <li>Training records and competency assessments</li>
+                                    <li>Quality control test results and certificates of analysis</li>
+                                    <li>Deviation and CAPA documentation</li>
+                                    <li>Change control records</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Best Practices:</strong> Implement electronic document management systems (EDMS) to ensure version control, accessibility, and compliance with data integrity requirements (21 CFR Part 11 for electronic records).</p>
+                        </div>
+                    </div>
+
+                    <!-- Risk Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Risk Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Risk management in cannabis manufacturing involves identifying, assessing, and mitigating potential hazards that could affect product quality, safety, or compliance.</p>
+                            
+                            <div class="key-points">
+                                <h4>Risk Assessment Framework:</h4>
+                                <ul>
+                                    <li>Hazard Analysis and Critical Control Points (HACCP) implementation</li>
+                                    <li>Failure Mode and Effects Analysis (FMEA) for equipment and processes</li>
+                                    <li>Contamination risk assessment (biological, chemical, physical)</li>
+                                    <li>Supply chain risk evaluation</li>
+                                    <li>Regulatory compliance risk monitoring</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Cannabis-Specific Risks:</strong> Include cross-contamination between strains, potency variability, microbial growth during storage, and extraction solvent residues.</p>
+                        </div>
+                    </div>
+
+                    <!-- Nonconformance and Deviation Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Nonconformance and Deviation Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Effective management of nonconformances and deviations is essential for maintaining product quality and regulatory compliance in cannabis manufacturing.</p>
+                            
+                            <div class="key-points">
+                                <h4>Key Processes:</h4>
+                                <ul>
+                                    <li>Immediate identification and documentation of deviations</li>
+                                    <li>Risk assessment and impact evaluation</li>
+                                    <li>Root cause analysis using tools like 5 Whys or Fishbone diagrams</li>
+                                    <li>Disposition decisions (accept, reject, rework)</li>
+                                    <li>Preventive measures implementation</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Distinction:</strong> Deviations occur during production (process variations), while nonconformances are identified in finished products. Not all deviations result in nonconforming products.</p>
+                        </div>
+                    </div>
+
+                    <!-- CAPA Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>CAPA Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Corrective and Preventive Action (CAPA) management addresses systemic issues to prevent recurrence of quality problems.</p>
+                            
+                            <div class="key-points">
+                                <h4>CAPA Process Steps:</h4>
+                                <ul>
+                                    <li>Problem identification from multiple sources (audits, complaints, deviations)</li>
+                                    <li>Investigation and root cause analysis</li>
+                                    <li>Action plan development with clear timelines</li>
+                                    <li>Implementation and effectiveness verification</li>
+                                    <li>Documentation and trend analysis</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Important Note:</strong> Not every nonconformance requires a CAPA. Reserve CAPA for systemic or recurring issues to maintain system effectiveness.</p>
+                        </div>
+                    </div>
+
+                    <!-- GMP Fundamentals for Cannabis/Hemp -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>GMP Fundamentals for Cannabis/Hemp</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Good Manufacturing Practices (GMP) ensure cannabis products are consistently produced and controlled according to quality standards appropriate for their intended use.</p>
+                            
+                            <div class="key-points">
+                                <h4>Core GMP Principles:</h4>
+                                <ul>
+                                    <li>Personnel hygiene and training requirements</li>
+                                    <li>Facility design and environmental controls</li>
+                                    <li>Equipment qualification and maintenance</li>
+                                    <li>Raw material controls and supplier qualification</li>
+                                    <li>Production and process controls</li>
+                                    <li>Laboratory controls and testing</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Regulatory Landscape:</strong> While federal GMP standards don't yet exist for cannabis, many states require compliance with food or dietary supplement GMPs (21 CFR 111 or 117).</p>
+                        </div>
+                    </div>
+
+                    <!-- Training & Competency Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Training & Competency Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Comprehensive training ensures all personnel have the knowledge and skills necessary to perform their duties in compliance with quality standards.</p>
+                            
+                            <div class="key-points">
+                                <h4>Training Program Elements:</h4>
+                                <ul>
+                                    <li>Initial onboarding and GMP fundamentals</li>
+                                    <li>Job-specific technical training</li>
+                                    <li>Ongoing refresher training</li>
+                                    <li>Competency assessments and verification</li>
+                                    <li>Training effectiveness evaluation</li>
+                                    <li>Documentation and record keeping</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Cannabis-Specific Training:</strong> Include state regulations, security protocols, seed-to-sale tracking, product handling, and contamination prevention specific to cannabis products.</p>
+                        </div>
+                    </div>
+
+                    <!-- Supplier Quality Management -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Supplier Quality Management</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Ensuring the quality of raw materials and components through comprehensive supplier qualification and ongoing monitoring.</p>
+                            
+                            <div class="key-points">
+                                <h4>Supplier Management Process:</h4>
+                                <ul>
+                                    <li>Supplier qualification and audit procedures</li>
+                                    <li>Quality agreements and specifications</li>
+                                    <li>Incoming material inspection and testing</li>
+                                    <li>Performance monitoring and scorecards</li>
+                                    <li>Continuous improvement partnerships</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Critical Suppliers:</strong> Cannabis cultivators, extraction equipment vendors, packaging suppliers, testing laboratories, and ingredient suppliers for edibles.</p>
+                        </div>
+                    </div>
+
+                    <!-- Validation & Qualification -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Validation & Qualification</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Validation ensures processes consistently produce products meeting predetermined specifications, while qualification verifies equipment and systems are fit for intended use.</p>
+                            
+                            <div class="key-points">
+                                <h4>Validation Activities:</h4>
+                                <ul>
+                                    <li>Equipment qualification (IQ/OQ/PQ)</li>
+                                    <li>Process validation for critical manufacturing steps</li>
+                                    <li>Cleaning validation for equipment</li>
+                                    <li>Analytical method validation</li>
+                                    <li>Computer system validation</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Cannabis Applications:</strong> Extraction process validation, infusion homogeneity studies, packaging seal integrity, and environmental monitoring system validation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Change Control & Internal Auditing -->
+                    <div class="topic-item">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <h3>Change Control & Internal Auditing</h3>
+                            <span class="topic-arrow">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <p>Change control ensures all modifications to validated systems are evaluated for impact, while internal auditing verifies ongoing compliance and effectiveness.</p>
+                            
+                            <div class="key-points">
+                                <h4>Change Control Process:</h4>
+                                <ul>
+                                    <li>Change request and impact assessment</li>
+                                    <li>Risk evaluation and approval workflow</li>
+                                    <li>Implementation and verification</li>
+                                    <li>Documentation and communication</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="key-points">
+                                <h4>Internal Audit Program:</h4>
+                                <ul>
+                                    <li>Annual audit schedule covering all areas</li>
+                                    <li>Risk-based audit approach</li>
+                                    <li>Compliance verification against regulations and SOPs</li>
+                                    <li>Findings management and follow-up</li>
+                                    <li>Management review of audit results</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section id="resources" class="resources-section">
+                <h2 class="section-title">Key Resources & References</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <span class="resource-type">Regulatory Guidance</span>
+                        <h3 class="resource-title">FDA CGMP Guidelines</h3>
+                        <p class="resource-description">Current Good Manufacturing Practice regulations for food and dietary supplements applicable to cannabis products.</p>
+                        <a href="https://www.fda.gov/drugs/pharmaceutical-quality-resources/facts-about-current-good-manufacturing-practice-cgmp" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-type">Industry Standards</span>
+                        <h3 class="resource-title">ASTM Cannabis Standards</h3>
+                        <p class="resource-description">International standards for cannabis quality, testing methods, and manufacturing practices.</p>
+                        <a href="https://www.astmcannabis.org/" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-type">Quality Tools</span>
+                        <h3 class="resource-title">NIST Cannabis Quality Tools</h3>
+                        <p class="resource-description">Reference materials and quality assurance programs for cannabis testing laboratories.</p>
+                        <a href="https://www.nist.gov/programs-projects/nist-tools-cannabis-laboratory-quality-assurance" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-type">Best Practices</span>
+                        <h3 class="resource-title">Health Canada GPP Guide</h3>
+                        <p class="resource-description">Good Production Practices guide for cannabis with detailed requirements and examples.</p>
+                        <a href="https://www.canada.ca/en/health-canada/services/cannabis-regulations-licensed-producers/good-production-practices-guide/guidance-document.html" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-type">Certification</span>
+                        <h3 class="resource-title">CSQ Certification Program</h3>
+                        <p class="resource-description">Cannabis Safety & Quality certification for cultivation, manufacturing, and retail operations.</p>
+                        <a href="https://csqcertification.com/" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-type">Training Resources</span>
+                        <h3 class="resource-title">FOCUS GMP Standards</h3>
+                        <p class="resource-description">Cannabis-specific Good Manufacturing Practice guidelines and implementation resources.</p>
+                        <a href="https://www.focusstandards.org/gmp-cannabis-industry/" class="resource-link" target="_blank">View Resource →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Kind Oasis. Quality Assurance Training Research.</p>
+            <p>Compiled for internal use in developing comprehensive training materials.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle accordion items
+        function toggleTopic(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.topic-item').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.module-card, .resource-card, .topic-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
